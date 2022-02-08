@@ -23,9 +23,9 @@ function App() {
             <Route path='/dashboard'>
                 <Dashboard />
             </Route>
-           <Route path="*">
+           {/* <Route path="*">
                   <NotFound></NotFound>
-            </Route>
+            </Route> */}
 
         </Switch>
       </Router>
