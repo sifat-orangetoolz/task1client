@@ -9,6 +9,8 @@ import NotFound from './components/NotFound/NotFound';
 import Packages from './components/Packages/Packages';
 import PrivateRouteBalance from './components/PrivateRouteBalance/PrivateRouteBalance';
 import PrivateRouteUser from './components/PrivateRouteUser/PrivateRouteUser';
+import StripePayment from './components/Payment/StripeContainer/StripePayment';
+
 
 export const UserContext = createContext();
 export const StatusContext = createContext();
@@ -36,6 +38,9 @@ function App() {
             </Route>
             <PrivateRouteUser path='/packages'>
                 <Packages />
+            </PrivateRouteUser>
+            <PrivateRouteUser path='/payment/:packageId/:title/:amount/:validity'>
+                <StripePayment />
             </PrivateRouteUser>
             <PrivateRouteBalance path='/dashboard'>
                 <Dashboard />
