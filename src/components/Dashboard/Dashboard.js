@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-// import { Col, Row } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+
 const Dashboard = () => {
-    const [Products, setProducts] = useState([]);
+    const [products, setProducts] = useState([]);
 
     useEffect(()=>{
         fetch(`http://localhost:5000/products/allProducts`)
@@ -10,25 +11,32 @@ const Dashboard = () => {
                 setProducts(data);
             });
     }, []);
-    console.log(Products)
 
     return (
-        <div>
-                {
-                    Products.length>0?<>
+        <Container className = "mt-4">
+            <Row>
+            {
+                products.length>0?<>
                         {
-                            Products.map((product) => (
-                                // console.log(product)
-                                // <h2>{product.name}</h2>
-                                <div>
-                                    <h2>{product.name}</h2>
-                                    <h4>{product.price}</h4>
-                                </div>   
+                            products.map((product) => (
+                                <Col xs={12} md={6}>
+                                <Card style={{ width: '18rem' }}>
+                                    <Card.Body>
+                                        <Card.Title>Package Type: {product.name}</Card.Title>
+                                            <Card.Text>
+                                                Price: {product.price}
+                                            </Card.Text>
+                                            <Button variant="success">Buy</Button>
+                                    </Card.Body>
+                                </Card>
+                              </Col> 
                             ))
                         
                     
-               }</>: <h2>No product Exist</h2>}
-        </div>
+               }</>: <h2 className='text-danger'>Sorry, No product Exist</h2>}
+            </Row>
+                
+        </Container>
 
 
                
