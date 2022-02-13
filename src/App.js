@@ -19,12 +19,9 @@ export const StatusContext = createContext();
 function App() {
 
   const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('email'));
-  const [paymentStatus, setPaymentStatus] = useState(localStorage.getItem('paymentStatus'));
-
 
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
-    <StatusContext.Provider value={[paymentStatus, setPaymentStatus]}>
     <div className="App">
         <Router>
         <Switch>
@@ -59,7 +56,6 @@ function App() {
         </Switch>
       </Router>
     </div>
-    </StatusContext.Provider>
     </UserContext.Provider>
 
   );
