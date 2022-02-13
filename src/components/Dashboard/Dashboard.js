@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
     const [products, setProducts] = useState([]);
@@ -26,7 +27,7 @@ const Dashboard = () => {
                                             <Card.Text>
                                                 Price: {product.price}
                                             </Card.Text>
-                                            <Button variant="success">Buy</Button>
+                                            <Link to={`/productPayment/${product.id}/${product.name}/${product.price}`}><Button variant="success">Buy</Button></Link>
                                     </Card.Body>
                                 </Card>
                               </Col> 

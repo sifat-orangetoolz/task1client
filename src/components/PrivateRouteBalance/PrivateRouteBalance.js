@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { StatusContext, UserContext } from '../../App';
+import { UserContext } from '../../App';
 
 const PrivateRouteBalance = ({ children, ...rest }) => {
-    const [paymentStatus, setPaymentStatus] = useContext(StatusContext);
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+
     return (
         <Route
             {...rest}
             render={({ location }) =>
-              (loggedInUser && paymentStatus === "balance ok") ? (
+              (loggedInUser ) ? (
                     children
                 ) : (
                     <Redirect

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { StatusContext, UserContext } from '../../App';
+import { UserContext } from '../../App';
 
 const Login = () => {
     const history = useHistory();
@@ -11,7 +11,6 @@ const Login = () => {
     const [password, setPassword] = useState('');
 
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-    const [paymentStatus, setPaymentStatus] = useContext(StatusContext);
 
     const handleLogin = (e)=>{
         e.preventDefault();
@@ -30,10 +29,9 @@ const Login = () => {
 
                 localStorage.setItem('id', result.user.id);
                 localStorage.setItem('email', result.user.email);
-                localStorage.setItem('paymentStatus', result.user.paymentStatus);
-                
+
                 setLoggedInUser(result.user.email)
-                setPaymentStatus(result.user.paymentStatus)
+
                 history.push(from)
                 // window.location.reload();
             }
