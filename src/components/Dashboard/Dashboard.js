@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+// import axios from "axios";
 
 const Dashboard = () => {
     const [products, setProducts] = useState([]);
+
+    const [user, setUser] = useState({});
 
     useEffect(()=>{
         fetch(`http://localhost:5000/products/allProducts`)
@@ -13,28 +15,75 @@ const Dashboard = () => {
             });
     }, []);
 
+    useEffect(()=>{
+        fetch(`http://localhost:5000/users/getUser/${localStorage.getItem('id')}`)
+            .then((res) => res.json())
+            .then((data) => {
+                setUser(data);
+            });
+    }, []);
+
+    console.log(user)
+
+
+    const handleClick = (product) => {
+        const productToBuy =  {
+            amount: product.price,
+            description: product.name,
+            user_id: localStorage.getItem('id'),
+            product_id: product.id
+        }
+
+        fetch('http://localhost:5000/products/buyProduct', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(productToBuy),
+        })
+            .then((res) => res.json())
+            .then((result) => {
+                    alert(result.message);
+                    window.location.reload();
+
+        })
+
+        }
+      
     return (
         <Container className = "mt-4">
             <Row>
-            {
-                products.length>0?<>
-                        {
-                            products.map((product) => (
-                                <Col xs={12} md={6}>
-                                <Card style={{ width: '18rem' }}>
-                                    <Card.Body>
-                                        <Card.Title>Package Type: {product.name}</Card.Title>
-                                            <Card.Text>
-                                                Price: {product.price}
-                                            </Card.Text>
-                                            <Link to={`/productPayment/${product.id}/${product.name}/${product.price}`}><Button variant="success">Buy</Button></Link>
-                                    </Card.Body>
-                                </Card>
-                              </Col> 
-                            ))
+                 <Col lg={8} md={8} sm={8}>
+                     <Row>
+                     {
+                        products.length>0?<>
+                                {
+                                    products.map((product) => (
+                                        <Col className='m-4'>
+                                        <Card style={{ width: '18rem' }}>
+                                            <Card.Body>
+                                                <Card.Title>Package Type: {product.name}</Card.Title>
+                                                    <Card.Text>
+                                                        Price: {product.price}
+                                                    </Card.Text>
+                                                    <Button onClick={()=>handleClick(product)} variant="success">Buy</Button>
+                                            </Card.Body>
+                                        </Card>
+                                    </Col> 
+                                    ))
+                                
+                            
+                    }</>: <h2 className='text-danger'>Sorry, No product Exist</h2>}
+
+                     </Row>
+
+                  </Col>
+
+                  <Col lg={4} md={4} sm={4} className='mt-4'>
+                        <h3 className='text-danger'>Current Balance</h3>
+                        <h5>{user.balance} $</h5>
+                  </Col>
                         
-                    
-               }</>: <h2 className='text-danger'>Sorry, No product Exist</h2>}
+             
+
             </Row>
                 
         </Container>

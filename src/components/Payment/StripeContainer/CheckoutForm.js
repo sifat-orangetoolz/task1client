@@ -5,7 +5,7 @@ import axios from "axios";
 export const CheckoutForm = (props) => {
 
   const {packageId, title, amount, validity} = props;
-  console.log(props)
+
   const stripe = useStripe();
   const elements = useElements();
 
@@ -17,7 +17,7 @@ export const CheckoutForm = (props) => {
     });
 
     if (!error) {
-      console.log("Stripe 23 | token generated!", paymentMethod);
+      console.log("Stripe 20 | token generated!", paymentMethod);
       try {
         const { id } = paymentMethod;
         const response = await axios.post(
@@ -33,15 +33,15 @@ export const CheckoutForm = (props) => {
         );
         console.log(response)
 
-        console.log("Stripe 35 | data", response.data.success);
+        console.log("Stripe 36 | data", response.data.success);
         if (response.data.success) {
-          console.log("CheckoutForm.js 25 | payment successful!");
+          alert("Payment Successful and Billing done")
         }
       } catch (error) {
-        console.log("CheckoutForm.js 28 | ", error);
+        console.log("CheckoutForm.js 41 | ", error);
       }
     } else {
-      console.log(error.message);
+      alert(error.message)
     }
   };
 
