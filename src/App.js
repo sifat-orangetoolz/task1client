@@ -10,6 +10,7 @@ import Packages from './components/Packages/Packages';
 import PrivateRouteBalance from './components/PrivateRouteBalance/PrivateRouteBalance';
 import PrivateRouteUser from './components/PrivateRouteUser/PrivateRouteUser';
 import StripePayment from './components/Payment/StripeContainer/StripePayment';
+import ProductPayment from './components/ProductPayment/ProductPaymentContainer/ProductPayment';
 
 
 export const UserContext = createContext();
@@ -18,12 +19,9 @@ export const StatusContext = createContext();
 function App() {
 
   const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('email'));
-  const [paymentStatus, setPaymentStatus] = useState(localStorage.getItem('paymentStatus'));
-
 
   return (
     <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
-    <StatusContext.Provider value={[paymentStatus, setPaymentStatus]}>
     <div className="App">
         <Router>
         <Switch>
@@ -42,6 +40,9 @@ function App() {
             <PrivateRouteUser path='/payment/:packageId/:title/:amount/:validity'>
                 <StripePayment />
             </PrivateRouteUser>
+            <PrivateRouteUser path='/productPayment/:productId/:title/:amount'>
+                <ProductPayment />
+            </PrivateRouteUser>
             <PrivateRouteBalance path='/dashboard'>
                 <Dashboard />
             </PrivateRouteBalance>
@@ -55,7 +56,6 @@ function App() {
         </Switch>
       </Router>
     </div>
-    </StatusContext.Provider>
     </UserContext.Provider>
 
   );
