@@ -58,6 +58,7 @@ const Packages = () => {
                 
                 </Col>
                 <Col lg={4} md={4} sm={4}>
+                <Button className='mb-4' variant="danger" onClick={()=> {localStorage.clear(); window.location.reload();}}>Log Out</Button>
                     <h3 className='mb-4 text-danger'>Current Balance</h3>
                     <h5>{user.balance} $</h5>
                 

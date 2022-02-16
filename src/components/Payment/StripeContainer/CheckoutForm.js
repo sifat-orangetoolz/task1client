@@ -1,6 +1,7 @@
 import React from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import axios from "axios";
+import { useHistory } from 'react-router-dom';
 
 export const CheckoutForm = (props) => {
 
@@ -8,6 +9,7 @@ export const CheckoutForm = (props) => {
 
   const stripe = useStripe();
   const elements = useElements();
+  const history = useHistory();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,7 +37,9 @@ export const CheckoutForm = (props) => {
 
         console.log("Stripe 36 | data", response.data.success);
         if (response.data.success) {
-          alert("Payment Successful and Billing done")
+          alert("Payment Successful and Billing done");
+          history.push('/');
+
         }
       } catch (error) {
         console.log("CheckoutForm.js 41 | ", error);

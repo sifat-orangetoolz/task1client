@@ -10,7 +10,7 @@ import Packages from './components/Packages/Packages';
 import PrivateRouteBalance from './components/PrivateRouteBalance/PrivateRouteBalance';
 import PrivateRouteUser from './components/PrivateRouteUser/PrivateRouteUser';
 import StripePayment from './components/Payment/StripeContainer/StripePayment';
-// import ProductPayment from './components/ProductPayment/ProductPaymentContainer/ProductPayment';
+
 
 
 export const UserContext = createContext();
@@ -25,10 +25,10 @@ function App() {
     <div className="App">
         <Router>
         <Switch>
-        <PrivateRouteBalance exact path='/'>
+            <PrivateRouteBalance exact path='/'>  
                 <Dashboard />
             </PrivateRouteBalance>
-            <Route exact path='/login'>
+            <Route path='/login'>
               <Login></Login>
             </Route>
             <Route path='/signup'>
@@ -40,9 +40,7 @@ function App() {
             <PrivateRouteUser path='/payment/:packageId/:title/:amount/:validity'>
                 <StripePayment />
             </PrivateRouteUser>
-            {/* <PrivateRouteUser path='/productPayment/:productId/:title/:amount'>
-                <ProductPayment />
-            </PrivateRouteUser> */}
+
             <PrivateRouteBalance path='/dashboard'>
                 <Dashboard />
             </PrivateRouteBalance>

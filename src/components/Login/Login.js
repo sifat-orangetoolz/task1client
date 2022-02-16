@@ -5,7 +5,6 @@ import { UserContext } from '../../App';
 const Login = () => {
     const history = useHistory();
     const location = useLocation();
-    const { from } = location.state || { from: { pathname: '/' }}
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -32,13 +31,13 @@ const Login = () => {
 
                 setLoggedInUser(result.user.email)
 
-                history.push(from)
-                // window.location.reload();
+                history.push('/')
             }
-            else if(result.message==='Login failed! Please try again.') {
-                alert(result.message);
-            }
+            // else if(result.errors) {
+            //     alert(result.errors);
+            // }
             else{
+                console.log(result)
                 alert('Invalid username or password');
                 
             }

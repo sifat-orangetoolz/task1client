@@ -7,11 +7,14 @@ const PrivateRouteBalance = ({ children, ...rest }) => {
 
     const [balanceStatus, setBalanceStatus] = useState('false');
 
+    let date = new Date();
+
     useEffect(()=>{
         fetch(`http://localhost:5000/users/getUser/${localStorage.getItem('id')}`)
             .then((res) => res.json())
             .then((data) => {
-                setBalanceStatus(data.balance>150 && data.validity_of_balance>=1);
+
+                setBalanceStatus(data.balance !==null && data.balance>=100 && ((new Date(data.validity_of_balance)).getTime()>=date.getTime())&& data.validity_of_balance!==null);
             });
     }, []);
 

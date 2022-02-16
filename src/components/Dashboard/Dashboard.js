@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 // import axios from "axios";
+import { useLocation } from 'react-router-dom';
 
 const Dashboard = () => {
     const [products, setProducts] = useState([]);
@@ -77,8 +78,9 @@ const Dashboard = () => {
 
                   </Col>
 
-                  <Col lg={4} md={4} sm={4} className='mt-4'>
-                        <h3 className='text-danger'>Current Balance</h3>
+                  <Col lg={4} md={4} sm={4} className='mt-2'>
+                        <Button className='mb-4' variant="danger" onClick={()=> {localStorage.clear(); window.location.reload();}}>Log Out</Button>
+                        <h3 className='text-danger mb-4'>Current Balance</h3>
                         <h5>{user.balance} $</h5>
                   </Col>
                         
