@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../App';
 
 const Login = () => {
     const history = useHistory();
-    const location = useLocation();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [ error, setError ] = useState('')
 
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
@@ -22,24 +22,24 @@ const Login = () => {
 
         .then((res) => res.json())
         .then((result) => {
-            console.log(result)
-            if(result.user.email) {
+            if(result.user) {
                 alert(result.message);
 
                 localStorage.setItem('id', result.user.id);
                 localStorage.setItem('email', result.user.email);
+                localStorage.setItem('token', result.token);
 
                 setLoggedInUser(result.user.email)
+                setError('')
 
                 history.push('/')
             }
-            // else if(result.errors) {
-            //     alert(result.errors);
-            // }
+
+            else if(result.message){
+                setError(result.message);       
+            }
             else{
-                console.log(result)
-                alert('Invalid username or password');
-                
+                alert('Invalid email or password');
             }
          })
 
@@ -57,8 +57,10 @@ const Login = () => {
                         <input type="email" id="email" placeholder="Email" className="form-control mb-3" onChange={(e)=> setEmail(e.target.value)} required/>
                         <label className="mb-2" htmlFor="password">Password:</label><br />
                         <input type="password" id="password" placeholder="Password" className="form-control mb-3" onChange={(e)=> setPassword(e.target.value)} required/>
+
+                        { error && <p className='text-danger'>{error}</p>}
                         <div className="d-flex justify-content-center"> 
-                        <input type="submit" value="Log In" className="login-btn" />
+                        <input type="submit" value="Log In" className="btn btn-dark" />
                         </div>
                     </form>
                 </div>
