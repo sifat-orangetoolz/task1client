@@ -1,8 +1,10 @@
 import React, { useContext, useState } from 'react';
+import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from '../../App';
 
 const Login = () => {
+    const cookies = new Cookies();
     const history = useHistory();
 
     const [email, setEmail] = useState('');

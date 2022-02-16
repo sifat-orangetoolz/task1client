@@ -1,11 +1,14 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { UserContext } from '../../App';
+import jwt_decode from 'jwt-decode';
 
 const PrivateRouteBalance = ({ children, ...rest }) => {
     const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
     const [balanceStatus, setBalanceStatus] = useState('false');
+    
+    var decoded = jwt_decode(localStorage.getItem('token'));
 
     let date = new Date();
 
