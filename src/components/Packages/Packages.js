@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import jwt_decode from 'jwt-decode';
 
 
 
@@ -8,9 +9,10 @@ const Packages = () => {
 
     const [packages, setPackages] = useState([]);
     const [user, setUser] = useState({});
+    const decoded = jwt_decode(localStorage.getItem('token'));
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/users/getUser/${localStorage.getItem('id')}`)
+        fetch(`http://localhost:5000/users/getUser/${decoded.id}`)
             .then((res) => res.json())
             .then((data) => {
                 setUser(data);

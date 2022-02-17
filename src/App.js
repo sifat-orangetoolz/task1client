@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+// import { createContext, useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import SignUp from './components/SignUp/SignUp';
@@ -13,21 +13,21 @@ import StripePayment from './components/Payment/StripeContainer/StripePayment';
 
 
 
-export const UserContext = createContext();
-export const StatusContext = createContext();
+// export const UserContext = createContext();
+// export const StatusContext = createContext();
 
 function App() {
 
-  const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('email'));
+  // const [loggedInUser, setLoggedInUser] = useState(localStorage.getItem('email'));
 
   return (
-    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+    // <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
     <div className="App">
         <Router>
         <Switch>
-            <PrivateRouteBalance exact path='/'>  
-                <Dashboard />
-            </PrivateRouteBalance>
+            <Route exact path='/'>  
+              <Login></Login>
+            </Route>
             <Route path='/login'>
               <Login></Login>
             </Route>
@@ -54,7 +54,7 @@ function App() {
         </Switch>
       </Router>
     </div>
-    </UserContext.Provider>
+    // </UserContext.Provider>
 
   );
 }

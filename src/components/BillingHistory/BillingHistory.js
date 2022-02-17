@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
+import jwt_decode from 'jwt-decode';
 import "./BillingHistory.css"
 
 
 const BillingHistory = () => {
     const [billings, setBillings] = useState([]);
+    const decoded = jwt_decode(localStorage.getItem('token'));
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/users/getUserBilling/${localStorage.getItem('id')}`)
+        fetch(`http://localhost:5000/users/getUserBilling/${decoded.id}`)
             .then((res) => res.json())
             .then((data) => {
                 setBillings(data.billing);

@@ -1,19 +1,21 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { UserContext } from '../../App';
+// import { UserContext } from '../../App';
 import jwt_decode from 'jwt-decode';
 
 const PrivateRouteBalance = ({ children, ...rest }) => {
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    // const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
     const [balanceStatus, setBalanceStatus] = useState('false');
+
+    const token = localStorage.getItem('token');
+    const decoded = jwt_decode(token);
     
-    var decoded = jwt_decode(localStorage.getItem('token'));
 
     let date = new Date();
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/users/getUser/${localStorage.getItem('id')}`)
+        fetch(`http://localhost:5000/users/getUser/${decoded.id}`)
             .then((res) => res.json())
             .then((data) => {
 
@@ -25,7 +27,7 @@ const PrivateRouteBalance = ({ children, ...rest }) => {
         <Route
             {...rest}
             render={({ location }) =>
-              (loggedInUser && balanceStatus ) ? (
+              ( token !== null && balanceStatus ) ? (
                     children
                 ) : (
                     <Redirect

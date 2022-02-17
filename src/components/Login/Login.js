@@ -1,17 +1,15 @@
 import React, { useContext, useState } from 'react';
-import Cookies from 'universal-cookie';
 import { useHistory } from 'react-router-dom';
-import { UserContext } from '../../App';
+// import { UserContext } from '../../App';
 
 const Login = () => {
-    const cookies = new Cookies();
     const history = useHistory();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [ error, setError ] = useState('')
 
-    const [loggedInUser, setLoggedInUser] = useContext(UserContext);
+    // const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
     const handleLogin = (e)=>{
         e.preventDefault();
@@ -24,17 +22,17 @@ const Login = () => {
 
         .then((res) => res.json())
         .then((result) => {
-            if(result.user) {
+            if(result.token) {
                 alert(result.message);
 
-                localStorage.setItem('id', result.user.id);
-                localStorage.setItem('email', result.user.email);
+                // localStorage.setItem('id', result.user.id);
+                // localStorage.setItem('email', result.user.email);
                 localStorage.setItem('token', result.token);
 
-                setLoggedInUser(result.user.email)
+                // setLoggedInUser(result.user.email)
                 setError('')
 
-                history.push('/')
+                history.push('/dashboard')
             }
 
             else if(result.message){

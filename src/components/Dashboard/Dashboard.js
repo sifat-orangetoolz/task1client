@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
+import jwt_decode from 'jwt-decode';
 // import axios from "axios";
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
 
 const Dashboard = () => {
     const [products, setProducts] = useState([]);
 
     const [user, setUser] = useState({});
+    const decoded = jwt_decode(localStorage.getItem('token'));
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/products/allProducts`)
+        fetch(`http://localhost:5000/products/allProducts/${decoded.id}`)
             .then((res) => res.json())
             .then((data) => {
                 setProducts(data);
@@ -17,21 +19,20 @@ const Dashboard = () => {
     }, []);
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/users/getUser/${localStorage.getItem('id')}`)
+        fetch(`http://localhost:5000/users/getUser/${decoded.id}`)
             .then((res) => res.json())
             .then((data) => {
                 setUser(data);
             });
     }, []);
 
-    console.log(user)
 
 
     const handleClick = (product) => {
         const productToBuy =  {
             amount: product.price,
             description: product.name,
-            user_id: localStorage.getItem('id'),
+            user_id: decoded.id,
             product_id: product.id
         }
 
