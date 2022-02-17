@@ -10,6 +10,7 @@ import Packages from './components/Packages/Packages';
 import PrivateRouteBalance from './components/PrivateRouteBalance/PrivateRouteBalance';
 import PrivateRouteUser from './components/PrivateRouteUser/PrivateRouteUser';
 import StripePayment from './components/Payment/StripeContainer/StripePayment';
+import Root from './components/Root/Root';
 
 
 
@@ -30,6 +31,9 @@ function App() {
             </Route>
             <Route path='/login'>
               <Login></Login>
+            </Route>
+            <Route path='/root'>
+              <Root></Root>
             </Route>
             <Route path='/signup'>
               <SignUp></SignUp>
@@ -54,7 +58,6 @@ function App() {
         </Switch>
       </Router>
     </div>
-    // </UserContext.Provider>
 
   );
 }

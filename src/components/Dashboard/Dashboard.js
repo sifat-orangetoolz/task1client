@@ -11,7 +11,7 @@ const Dashboard = () => {
     const decoded = jwt_decode(localStorage.getItem('token'));
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/products/allProducts/${decoded.id}`)
+        fetch(`http://localhost:5000/products/allProducts/`)
             .then((res) => res.json())
             .then((data) => {
                 setProducts(data);
