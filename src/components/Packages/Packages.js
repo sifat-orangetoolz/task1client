@@ -1,29 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import jwt_decode from 'jwt-decode';
+// import jwt_decode from 'jwt-decode';
+import rootApi from '../api/rootApi';
 
 
 
 const Packages = () => {
 
     const [packages, setPackages] = useState([]);
-    const [user, setUser] = useState({});
-    const decoded = jwt_decode(localStorage.getItem('token'));
+    const [balance, setBalance] = useState('');
+    // const [user, setUser] = useState({});
+    // const decoded = jwt_decode(localStorage.getItem('token'));
+
+    // useEffect(()=>{
+    //     // fetch(`http://localhost:5000/users/getUser/${decoded.id}`)
+    //         rootApi('GET', 'http://localhost:5000/users/getUser', {})
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setUser(data);
+    //         });
+    // }, []);
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/users/getUser/${decoded.id}`)
+         rootApi('GET', 'http://localhost:5000/packages/getPackages')
             .then((res) => res.json())
             .then((data) => {
-                setUser(data);
-            });
-    }, []);
-
-    useEffect(()=>{
-        fetch(`http://localhost:5000/packages/getPackages/`)
-            .then((res) => res.json())
-            .then((data) => {
-                setPackages(data);
+                setPackages(data.data);
+                setBalance(data.userBalance)
             });
     }, []);
 
@@ -48,7 +52,7 @@ const Packages = () => {
                                                 validity: {rechargePackage.validity}
                                             </Card.Text>
                                         
-                                            <Link to={`/payment/${rechargePackage.id}/${rechargePackage.title}/${rechargePackage.amount}/${rechargePackage.validity}`}><Button variant="success">Buy</Button></Link>
+                                            {/* <Link to={`/payment/${rechargePackage.id}/${rechargePackage.title}/${rechargePackage.amount}/${rechargePackage.validity}`}><Button variant="success">Buy</Button></Link> */}
                                     </Card.Body>
                                 </Card>
                             </Col> 
@@ -64,7 +68,7 @@ const Packages = () => {
                 <Col lg={4} md={4} sm={4}>
                 <Button className='mb-4' variant="danger" onClick={()=> {localStorage.clear(); window.location.reload();}}>Log Out</Button>
                     <h3 className='mb-4 text-danger'>Current Balance</h3>
-                    <h5>{user.balance} $</h5>
+                    <h5>{balance} $</h5>
                 
                 </Col>
 

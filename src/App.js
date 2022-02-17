@@ -45,9 +45,9 @@ function App() {
                 <StripePayment />
             </PrivateRouteUser>
 
-            <PrivateRouteBalance path='/dashboard'>
+            <Route path='/dashboard'>
                 <Dashboard />
-            </PrivateRouteBalance>
+            </Route>
             <PrivateRouteUser path='/billing'>
                 <BillingHistory />
             </PrivateRouteUser>
