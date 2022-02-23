@@ -4,10 +4,14 @@ import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 // import axios from "axios";
 // import { useLocation } from 'react-router-dom';
 import rootApi from '../api/rootApi';
+import { useHistory } from 'react-router-dom';
 
 const Dashboard = () => {
     const [products, setProducts] = useState([]);
     const [balance, setBalance] = useState('');
+    const [userId, setUserId] = useState('');
+    const history = useHistory();
+
     // const [user, setUser] = useState({});
     // const decoded = jwt_decode(localStorage.getItem('token'));
 
@@ -18,8 +22,15 @@ const Dashboard = () => {
             .then((data) => {
                 setProducts(data.data);
                 setBalance(data.balance);
+                setUserId(data.userId);
+                if(data.balance<100){
+                    history.push('/packages')
+                }
+
             });
     }, []);
+
+
 
     // useEffect(()=>{
     //     fetch(`http://localhost:5000/users/getUser/${decoded.id}`)
@@ -31,27 +42,28 @@ const Dashboard = () => {
 
 
 
-    // const handleClick = (product) => {
-    //     const productToBuy =  {
-    //         amount: product.price,
-    //         description: product.name,
-    //         user_id: decoded.id,
-    //         product_id: product.id
-    //     }
+    const handleClick = (product) => {
+        const productToBuy =  {
+            amount: product.price,
+            description: product.name,
+            product_id: product.id
+        }
 
-    //     fetch('http://localhost:5000/products/buyProduct', {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify(productToBuy),
-    //     })
-    //         .then((res) => res.json())
-    //         .then((result) => {
-    //                 alert(result.message);
-    //                 window.location.reload();
+        fetch('http://localhost:5000/products/buyProduct', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 
+            'authorization': `bearer ${localStorage.getItem('token')}`    
+            },
+            body: JSON.stringify(productToBuy),
+        })
+            .then((res) => res.json())
+            .then((result) => {
+                    alert(result.message);
+                    window.location.reload();
 
-    //     })
+        })
 
-    //     }
+        }
       
     return (
         <Container className = "mt-4">
@@ -69,7 +81,7 @@ const Dashboard = () => {
                                                     <Card.Text>
                                                         Price: {product.price}
                                                     </Card.Text>
-                                                    {/* <Button onClick={()=>handleClick(product)} variant="success">Buy</Button> */}
+                                                    <Button onClick={()=>handleClick(product)} variant="success">Buy</Button>
                                             </Card.Body>
                                         </Card>
                                     </Col> 
@@ -83,7 +95,7 @@ const Dashboard = () => {
                   </Col>
 
                   <Col lg={4} md={4} sm={4} className='mt-2'>
-                        <Button className='mb-4' variant="danger" onClick={()=> {localStorage.clear(); window.location.reload();}}>Log Out</Button>
+                        <Button className='mb-4' variant="danger" onClick={()=> {localStorage.clear();  window.location.reload();}}>Log Out</Button>
                         <h3 className='text-danger mb-4'>Current Balance</h3>
                         <h5>{balance} $</h5>
                   </Col>

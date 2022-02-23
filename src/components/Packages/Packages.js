@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 // import jwt_decode from 'jwt-decode';
 import rootApi from '../api/rootApi';
 
@@ -10,6 +10,9 @@ const Packages = () => {
 
     const [packages, setPackages] = useState([]);
     const [balance, setBalance] = useState('');
+    const history = useHistory();
+
+    
     // const [user, setUser] = useState({});
     // const decoded = jwt_decode(localStorage.getItem('token'));
 
@@ -52,7 +55,7 @@ const Packages = () => {
                                                 validity: {rechargePackage.validity}
                                             </Card.Text>
                                         
-                                            {/* <Link to={`/payment/${rechargePackage.id}/${rechargePackage.title}/${rechargePackage.amount}/${rechargePackage.validity}`}><Button variant="success">Buy</Button></Link> */}
+                                            <Link to={`/payment/${rechargePackage.id}/${rechargePackage.title}/${rechargePackage.amount}/${rechargePackage.validity}`}><Button variant="success">Buy</Button></Link>
                                     </Card.Body>
                                 </Card>
                             </Col> 
@@ -66,7 +69,7 @@ const Packages = () => {
                 
                 </Col>
                 <Col lg={4} md={4} sm={4}>
-                <Button className='mb-4' variant="danger" onClick={()=> {localStorage.clear(); window.location.reload();}}>Log Out</Button>
+                <Button className='mb-4' variant="danger" onClick={()=> {localStorage.clear(); history.push("/login"); window.location.reload();}}>Log Out</Button>
                     <h3 className='mb-4 text-danger'>Current Balance</h3>
                     <h5>{balance} $</h5>
                 
