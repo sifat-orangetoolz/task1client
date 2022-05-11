@@ -1,6 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import { UserContext } from '../../App';
 
 const Login = () => {
     const history = useHistory();
@@ -8,8 +7,6 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [ error, setError ] = useState('')
-
-    // const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
     const handleLogin = (e)=>{
         e.preventDefault();
@@ -24,12 +21,7 @@ const Login = () => {
         .then((result) => {
             if(result.token) {
                 alert(result.message);
-
-                // localStorage.setItem('id', result.user.id);
-                // localStorage.setItem('email', result.user.email);
                 localStorage.setItem('token', result.token);
-
-                // setLoggedInUser(result.user.email)
                 setError('')
 
                 history.push('/dashboard')

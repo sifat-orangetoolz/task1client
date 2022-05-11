@@ -1,29 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
-// import jwt_decode from 'jwt-decode';
 import rootApi from '../api/rootApi';
-
-
 
 const Packages = () => {
 
     const [packages, setPackages] = useState([]);
     const [balance, setBalance] = useState('');
     const history = useHistory();
-
-    
-    // const [user, setUser] = useState({});
-    // const decoded = jwt_decode(localStorage.getItem('token'));
-
-    // useEffect(()=>{
-    //     // fetch(`http://localhost:5000/users/getUser/${decoded.id}`)
-    //         rootApi('GET', 'http://localhost:5000/users/getUser', {})
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setUser(data);
-    //         });
-    // }, []);
 
     useEffect(()=>{
          rootApi('GET', 'http://localhost:5000/packages/getPackages')

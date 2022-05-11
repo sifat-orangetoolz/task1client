@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Container } from 'react-bootstrap';
-// import jwt_decode from 'jwt-decode';
 import "./BillingHistory.css"
 import rootApi from '../api/rootApi';
 
 
 const BillingHistory = () => {
     const [billings, setBillings] = useState([]);
-    // const decoded = jwt_decode(localStorage.getItem('token'));
 
     useEffect(()=>{
-        // fetch(`http://localhost:5000/users/getUserBilling`)
             rootApi('GET', 'http://localhost:5000/users/getUserBilling')
             .then((res) => res.json())
             .then((data) => {
@@ -40,7 +37,7 @@ const BillingHistory = () => {
                                     </tr>
                                 </>)
                             }
-
+{/*  */}
                         
                     </table>
             </div>

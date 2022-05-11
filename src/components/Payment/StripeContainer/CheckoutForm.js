@@ -1,9 +1,8 @@
 import React from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import axios from "axios";
+// import axios from "axios";
 import { useHistory } from 'react-router-dom';
-// import jwt_decode from 'jwt-decode';
-import rootApiPost from '../../api/rootApiPost';
+// import rootApiPost from '../../api/rootApiPost';
 
 export const CheckoutForm = (props) => {
 
@@ -12,7 +11,6 @@ export const CheckoutForm = (props) => {
   const stripe = useStripe();
   const elements = useElements();
   const history = useHistory();
-  // const decoded = jwt_decode(localStorage.getItem('token'));
 
   const handleSubmit = async (event) => {
     event.preventDefault();

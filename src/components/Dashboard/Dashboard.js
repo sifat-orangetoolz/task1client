@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Container, Row } from 'react-bootstrap';
-// import jwt_decode from 'jwt-decode';
-// import axios from "axios";
-// import { useLocation } from 'react-router-dom';
 import rootApi from '../api/rootApi';
 import { useHistory } from 'react-router-dom';
 
@@ -12,11 +9,8 @@ const Dashboard = () => {
     const [userId, setUserId] = useState('');
     const history = useHistory();
 
-    // const [user, setUser] = useState({});
-    // const decoded = jwt_decode(localStorage.getItem('token'));
 
     useEffect(()=>{
-        // fetch(`http://localhost:5000/products/allProducts/`)
             rootApi('GET', 'http://localhost:5000/products/allProducts')
             .then((res) => res.json())
             .then((data) => {
@@ -29,17 +23,6 @@ const Dashboard = () => {
 
             });
     }, []);
-
-
-
-    // useEffect(()=>{
-    //     fetch(`http://localhost:5000/users/getUser/${decoded.id}`)
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setUser(data);
-    //         });
-    // }, []);
-
 
 
     const handleClick = (product) => {
